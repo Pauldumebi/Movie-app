@@ -1,0 +1,38 @@
+.movie-info-modal-lg .modal-lg, .modal-xl {
+    max-width: 2000px;
+}
+.movie-info-modal-lg .close  {
+    margin-top: -4rem !important;
+    color: #dbdbde;
+   
+}
+.movie-info-content-container {
+    max-width: 900px;
+    width: 100%;
+    margin: auto;
+}
+.movie-info-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+.movie-info-modal-lg .modal-header {
+    border-bottom: none !important;
+}
+.movie-info-container .movie-title{
+    height: 60vh;
+}
+.movie-info-container img{
+    width: 100%;
+    /* height: 100vh; */
+    background-size: contain;
+}
+
+@media(max-width: 768px) {
+    .movie-info-modal-lg .close  {
+        margin-top: unset !important;
+        color: black;
+       
+    }
+}

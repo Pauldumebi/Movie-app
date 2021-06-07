@@ -1,0 +1,17 @@
+.login {
+    color: rgba(0,0,0,.5);
+}
+.login:hover {
+    text-decoration: none;
+}
+.sign-up {
+    background: #ea4c89 !important;
+    color: white !important;
+    border: none;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+}
+.sign-up:hover {
+    text-decoration: none;
+    background: #f02070;
+}

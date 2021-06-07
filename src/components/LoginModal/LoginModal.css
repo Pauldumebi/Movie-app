@@ -1,0 +1,15 @@
+.modal-login-img {
+    background-image: url("../../images/GI+Joe+Retaliation+movie+posters.jpeg");
+    height: 20rem;
+    background-size: contain;
+    width: 100%;
+}
+.login-modal .close span {
+    background: white;
+    border-radius: 50%;
+    padding: .1rem .5rem;
+}
+.login-modal .close{
+    margin-top: -2.5rem !important;
+    margin-right: -2.5rem !important;
+}
