@@ -61,3 +61,9 @@ main {
     background-position: bottom center;
     background-size: cover;
 }
+
+@media (max-width: 768px){
+    .auth-form h3, .have-account, .field label {
+        color: white;
+    }
+}

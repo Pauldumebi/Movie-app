@@ -9,17 +9,11 @@ import loader from '../../images/gif-loader.gif'
 import { Row, Col } from 'react-bootstrap';
 import Card from '../../components/Cards/Card'
 import axios from 'axios';
-import SignupModal from '../../components/RegisterModal/RegisterModal'
-import LoginModal from '../../components/LoginModal/LoginModal'
 import { BASE_URL, API_KEY, BASE_IMG } from '../../components/config';
 
 
 const Home = () => {
 
-    const [Signup, setSignup] = useState(false);
-    const [Login, setLogin] = useState(false);
-    const handleClose = () => setSignup(false);
-    const handleClose2 = () => setLogin(false);
     const [isLoaded, setLoaded] = useState(false);
     const [CardDetails, setCardDetails] = useState([])
     const [filterResult, setfilterResult] = useState([])
@@ -59,9 +53,6 @@ const Home = () => {
             {isLoaded ? ( 
                 <div>
                     <Header/>
-                    <SignupModal show={Signup} onHide={handleClose}/>
-                    <LoginModal show={Login} onHide={handleClose2}/>
-                    
                     <div className="landing-page-container">
                         <div className="landing-page-img">
                             <Row>

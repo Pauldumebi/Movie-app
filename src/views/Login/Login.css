@@ -54,3 +54,19 @@ main {
     background-position: bottom center;
     background-size: cover;
 }
+
+@media (max-width: 768px){
+    .Login-form h3 {
+        font-size: 32px;
+        text-align: center;
+        /* font-weight: 700;
+        line-height: 56px; */
+        color: white;
+    }
+    .no-account {
+        color: white;
+    }
+    .no-account a {
+        color: red;
+    }
+}

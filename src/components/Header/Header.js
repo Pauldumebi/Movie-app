@@ -33,7 +33,7 @@ const Header = () => {
                     <Nav>
                     {loggedIn ? 
                         <Nav>
-                            <Nav className="font-weight-bold pr-5" style={{alignItems: "center", fontSize:"24px"}}>Welcome {loggedIn}</Nav>
+                            <Nav className="font-weight-bold pr-5 welcome">Welcome {loggedIn}</Nav>
                             <Nav.Link>
                                 <Link to="/" className="sign-up" onClick={()=>logOut()}>
                                     Log out
