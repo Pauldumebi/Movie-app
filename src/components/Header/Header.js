@@ -7,6 +7,7 @@ import {Link, useHistory} from 'react-router-dom'
 const Header = () => {
     const history = useHistory()
     const [loggedIn, setloggedIn] = useState()
+    const [loggedOut, setloggedOut] = useState("")
 
     //Check if User is logged in to get name
     useEffect(() => {
@@ -17,6 +18,7 @@ const Header = () => {
     //Clear username from local storage
     const logOut = () => {
         localStorage.setItem('name', JSON.stringify(""));
+        setloggedIn(loggedOut)
         history.push("/")
     }
     
