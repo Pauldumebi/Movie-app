@@ -3,10 +3,27 @@ import { Formik, Form} from "formik";
 import * as Yup from "yup";
 import { Input } from "../../components/Textfield/TextField";
 import './Login.css'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { Row, Col } from 'react-bootstrap';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'
 
 const Login = () => {
+
+    const history = useHistory();
+
+    const notify = (msg) =>
+		toast.success(msg, {
+			position: toast.POSITION.TOP_CENTER,
+			autoClose: 5000,
+		});
+	const errorStuff = () =>
+		toast.error("failed to signup please try again", {
+			position: toast.POSITION.TOP_CENTER,
+			autoClose: 5000,
+		});
+    
     const validate = Yup.object({
 		email: Yup.string()
 			.email("Email is invalid")
@@ -15,18 +32,38 @@ const Login = () => {
 			.min(6, "Password must be at least 6 characters")
 			.required("Password is required"),
 	});
+
+    const headers = {
+        'Content-Type': 'application/json',
+    }
     
     return (
         <Formik
         initialValues={{
-            Name: "",
             email: "",
             password: "",
-            confirmPassword: "",
         }}
         validationSchema={validate}
         onSubmit={(values) => {
             console.log(values);
+            axios
+            .post(
+                "https://afternoon-ridge-35420.herokuapp.com/https://dumebi-movie-app-api.herokuapp.com/api/v1/login", 
+                values, {
+                    headers: headers
+                }
+            )
+            .then((res) => {
+                if (res.status === 200) {
+                    notify(res.data.message)
+                    localStorage.setItem('name', JSON.stringify(res.data.data.first_name));
+                    history.push("/");
+                } 
+            })
+            .catch(function (error) {
+                errorStuff()
+                console.log(error);
+            });
             }
         }
     >

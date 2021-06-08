@@ -14,9 +14,6 @@ const MovieInfo = (props) => {
                         <div className="movie-info-header">
                             <div className="movie-info-title"></div>
                             <div className="movie-info-like">
-                                <a className="like-movie" href>
-                                    <i className="fa fa-heart" aria-hidden="true" style={{color : "grey", fontSize:"1.2rem", cursor:"pointer"}}></i>
-                                </a>
                             </div>
                         </div>
                     </div>

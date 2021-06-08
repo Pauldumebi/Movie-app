@@ -1,10 +1,25 @@
-import React from 'react'
+import {useEffect, useState} from 'react'
 import {Nav, Navbar} from 'react-bootstrap'
 import logo from '../../images/Group 1.svg'
 import './Header.css'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
 const Header = () => {
+    const history = useHistory()
+    const [loggedIn, setloggedIn] = useState()
+
+    //Check if User is logged in to get name
+    useEffect(() => {
+        const name = JSON.parse(localStorage.getItem('name'));
+        setloggedIn(name)
+    }, [])
+
+    //Clear username from local storage
+    const logOut = () => {
+        localStorage.setItem('name', JSON.stringify(""));
+        history.push("/")
+    }
+    
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" className="container-fluid">
@@ -16,18 +31,33 @@ const Header = () => {
                     <Nav.Link href="#">Fans favourites</Nav.Link>
                     </Nav>
                     <Nav>
-                    <Nav.Link>
-                        <Link to="/login" className="login">
-                            Sign in
-                        </Link>
-                        
-                    </Nav.Link>
-                    <Nav.Link>
-                        <Link to="/register" className="sign-up">
-                            Sign up
-                        </Link>
-                        
-                    </Nav.Link>
+                    {loggedIn ? 
+                        <Nav>
+                            <Nav className="font-weight-bold pr-5" style={{alignItems: "center", fontSize:"24px"}}>Welcome {loggedIn}</Nav>
+                            <Nav.Link>
+                                <Link to="/" className="sign-up" onClick={()=>logOut()}>
+                                    Log out
+                                </Link>
+                                
+                            </Nav.Link>
+                        </Nav>  
+                        :
+                        <Nav>
+                            <Nav.Link>
+                                <Link to="/login" className="login">
+                                    Login
+                                </Link>
+                                
+                            </Nav.Link>
+                            <Nav.Link>
+                                <Link to="/register" className="sign-up">
+                                    Sign up
+                                </Link>
+                                
+                            </Nav.Link>
+                        </Nav>
+                    }
+                    
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

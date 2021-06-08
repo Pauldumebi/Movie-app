@@ -1,62 +1,82 @@
-import {useEffect, Fragment} from 'react';
+import {Fragment} from 'react';
 import { Formik, Form} from "formik";
 import * as Yup from "yup";
 import { Input } from "../../components/Textfield/TextField";
 import './Register.css'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { Row, Col } from 'react-bootstrap';
-// import { useSelector, useDispatch, Provider } from 'react-redux';
-// import { signupUser, userSelector, clearState } from '../../features/UserSlice';
-import toast from 'react-hot-toast';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'
 
 const Register = () => {
+    toast.configure();
+    const history = useHistory();
 
-    // const dispatch = useDispatch();
-    // const { isSuccess, isError, errorMessage } = useSelector(
-    //     userSelector
-    // )
+    //Success message for toast
+    const notify = (msg) =>
+		toast.success(msg, {
+			position: toast.POSITION.TOP_CENTER,
+			autoClose: 3000,
+		});
 
-  
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //       dispatch(clearState());
-    //     }
-    //     if (isError) {
-    //       toast.error(errorMessage);
-    //       dispatch(clearState());
-    //     }
-    //   }, [isSuccess, isError]);
-
+    //Error message for toast
+	const errorStuff = () =>
+		toast.error("failed to signup please try again", {
+			position: toast.POSITION.TOP_CENTER,
+			autoClose: 3000,
+		});
+    
+    //formik validation
     const validate = Yup.object({
-		Name: Yup.string()
+		first_name: Yup.string()
+			.max(34, "Must be 30 characters or less")
+			.required("Name is Required"),
+        last_name: Yup.string()
 			.max(34, "Must be 30 characters or less")
 			.required("Name is Required"),
 		email: Yup.string()
 			.email("Email is invalid")
 			.required("Email is required"),
 		password: Yup.string()
-			.min(6, "Password must be at least 6 characters")
+			.min(8, "Password must be at least 8 characters")
 			.required("Password is required"),
-		confirmPassword: Yup.string()
-			.oneOf([Yup.ref("password"), null], "Password must match")
-			.required("Confirm password is required"),
 	});
     
-      return (
-        // <Provider>
+    //setting the headers for post request
+    const headers = {
+        'Content-Type': 'application/json',
+    }
+
+    return (
 		<Formik
 			initialValues={{
-				Name: "",
+				first_name: "",
+				last_name: "",
 				email: "",
 				password: "",
-				confirmPassword: "",
 			}}
 			validationSchema={validate}
 			onSubmit={(values) => {
-				console.log(values);
-                // dispatch(signupUser(values));
-				}
-			}
+                axios
+                    .post(
+                        "https://afternoon-ridge-35420.herokuapp.com/https://dumebi-movie-app-api.herokuapp.com/api/v1/signup",
+                        values, {
+                            headers: headers
+                        }
+                    )
+                    .then((res) => {
+                        console.log(res)
+                        if (res) {
+                            notify(res.data.message)
+                            history.push("/login");
+                        } 
+                    })
+                    .catch(function (error) {
+                        errorStuff()
+                        console.log(error);
+                    });
+            }}
 		>
 			{(formik) => (
 				<Fragment>
@@ -66,7 +86,7 @@ const Register = () => {
                         </Col>
                         <Col sm={8}>
                             <div>
-                                <div className="have-account">Already have an account? <Link to="/login"> Sign In</Link></div>
+                                <div className="have-account">Already have an account? <Link to="/login"> Login</Link></div>
                             </div>
                             <main>
                                 <div className="auth-form pt-5">
@@ -74,10 +94,18 @@ const Register = () => {
                                     <Form>
                                         <div className="mb-4">
                                             <Input
-                                                label="Name"
-                                                name="Name"
+                                                label="First Name"
+                                                name="first_name"
                                                 type="text"
-                                                placeholder="Please enter your name"
+                                                placeholder="Please enter your first name"
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <Input
+                                                label="Last Name"
+                                                name="last_name"
+                                                type="text"
+                                                placeholder="Please enter your last name"
                                             />
                                         </div>
                                         <div className="mb-4">
@@ -98,15 +126,6 @@ const Register = () => {
                                                 placeholder="Please enter your password"
                                             />
                                         </div>
-                                        <div className="mb-4">
-                                            <Input
-                                                label="Confirm Password"
-                                                name="confirmPassword"
-                                                type="password"
-                                                id="form-input"
-                                                placeholder="Please confirm your password"
-                                            />
-                                        </div>
                                         <button
                                             className="mt-3 signup-btn"
                                             type="submit"
@@ -122,7 +141,6 @@ const Register = () => {
 				</Fragment>
 			)}
 		</Formik>
-        // </Provider>
     );
 }
 

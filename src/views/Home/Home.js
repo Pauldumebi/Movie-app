@@ -7,61 +7,52 @@ import Thanosimg from '../../images/Thanos.jpg'
 import sometaleimg from '../../images/some-tale.jpg'
 import loader from '../../images/gif-loader.gif'
 import { Row, Col } from 'react-bootstrap';
-import Search from '../../components/Search/Search'
 import Card from '../../components/Cards/Card'
-import { config } from '../../Constant';
 import axios from 'axios';
-import SignupModal from '../../components/SignupModal/SignupModal'
+import SignupModal from '../../components/RegisterModal/RegisterModal'
 import LoginModal from '../../components/LoginModal/LoginModal'
-// import MovieInfo from '../../components/MovieInfo/MovieInfo'
 import { BASE_URL, API_KEY, BASE_IMG } from '../../components/config';
 
 
 const Home = () => {
 
-    // var url = config.url.API_URL;
     const [Signup, setSignup] = useState(false);
     const [Login, setLogin] = useState(false);
     const handleClose = () => setSignup(false);
     const handleClose2 = () => setLogin(false);
     const [isLoaded, setLoaded] = useState(false);
     const [CardDetails, setCardDetails] = useState([])
+    const [filterResult, setfilterResult] = useState([])
 
+    //endpoint for getting movies
     const options = {
         method: 'GET',
         url: `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=eng`,
-      };
-      
-      
+    };
+    
+    //fetch movies
     useEffect(() => {
-        
         axios.request(options).then(function (response) {
-            // const values = {
-            //     values : response.data.results
-            // }
-            // axios
-            // .post(
-            //     "https://nimdeewksht.sandbox.9ijakids.com/movie-app/api.php/bulkInsert",
-            //     values
-            // )
-            // .then((res) => {
-            //     if (res.status === 200) {
-            //         console.log(res.data.message)
-            //     } else {
-                    
-            //     }
-            // })
-            // .catch(function (error) {
-                
-            //     console.log(error);
-            // });
             console.log(response.data.results)
             setCardDetails(response.data.results)
+            setfilterResult(response.data.results)
             setLoaded(true)
         }).catch(function (error) {
             console.error(error);
         });
+        
     }, [])
+
+    //Search movies
+    const handleSearch = (event) => {
+        let value = event.target.value.toLowerCase();
+        let result = [];
+        console.log(value);
+        result = CardDetails.filter((data) => {
+            return data.original_title.includes(value);
+        });
+            setfilterResult(result);
+        }
 
     return (
         <div>
@@ -93,8 +84,34 @@ const Home = () => {
                             <p>Over 1000 movies available in HD, 4k and many more.</p>
                         </div>
                     </div>
-                    <Search/>
-                    <Card cardDetails={CardDetails} baseimg={BASE_IMG}/>
+                    
+                    <div className="search-input-container">
+                        <div className="search-input-with-dropdown">
+                            <div className="left-side-wrapper">
+                                <i className="fa fa-search search-icon" aria-hidden="true"></i>
+                                <form className="search-input-form">
+                                    <label htmlFor="search" className="text">Search</label>
+                                    <input id="search" type="text" placeholder="Search a movie" className="search-input" 
+                                        onChange={(event) =>handleSearch(event)}></input>
+                                </form>
+                            </div>
+                            <div className="vertical-divider"></div>
+                            <span className="btn-dropdown">
+                                <a className="btn-dropdown-link" href data-dropdown-state="closed">
+                                    <span>Horror</span>
+                                    <i className="fa fa-sort-desc btn-dropdown-caret" aria-hidden="true"></i>
+                                </a>
+                                {/* <div className="btn-dropdown-options">
+                                    <ul>
+                                        <li></li>
+                                    </ul>
+                                </div> */}
+                            </span>
+                        </div>
+                    </div>
+                    {console.log(CardDetails)}
+                    <Card cardDetails={filterResult} baseimg={BASE_IMG}/>
+
                 </div>
             ) : (
                 <div className="text-center">

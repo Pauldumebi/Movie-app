@@ -13,6 +13,7 @@ const Card = ({cardDetails, baseimg}) => {
     const [Movies, setMovies] = useState([])
     const handleClose3 = () => setfilmInfo(false);
 
+    //Get all casts for movies
     const getCredits = (item) => {
         axios
             .get(
@@ -29,6 +30,8 @@ const Card = ({cardDetails, baseimg}) => {
                 console.log(error);
             });
     }
+
+    //Get Youtube video for movies
     const getMovies = (item) => {
         axios
             .get(
@@ -60,18 +63,15 @@ const Card = ({cardDetails, baseimg}) => {
                 {cardDetails.map((item) => {
                     return(
                         <Col sm={4}>
-                                <div className="thumbnail thumbnail-container ">
-                                    <div className="thumbnail-base">
-                                        <figure style={{ backgroundColor: "#ECECEC"}}className="thumbnail-placeholder" onClick={()=> movieDetails(item)}>
-                                            <img alt={item.original_title} src={`${baseimg}${item.poster_path}`}></img>
-                                        </figure>
-                                    </div>
+                            <div className="thumbnail thumbnail-container ">
+                                <div className="thumbnail-base">
+                                    <figure style={{ backgroundColor: "#ECECEC"}}className="thumbnail-placeholder" onClick={()=> movieDetails(item)}>
+                                        <img alt={item.original_title} src={`${baseimg}${item.poster_path}`}></img>
+                                    </figure>
                                 </div>
+                            </div>
                             <div className="shot-title d-flex justify-content-between pl-2 pr-2 pt-4 pb-4">
                                 <h5>{item.original_title}</h5>
-                                <a className="like-shot" href>
-                                    <i className="fa fa-heart" aria-hidden="true" style={{color : "grey", fontSize:"1.2rem"}}></i>
-                                </a>
                             </div>
                         </Col>
                         )
