@@ -66,7 +66,6 @@ const Register = () => {
                         }
                     )
                     .then((res) => {
-                        console.log(res)
                         if (res) {
                             notify(res.data.message)
                             history.push("/login");

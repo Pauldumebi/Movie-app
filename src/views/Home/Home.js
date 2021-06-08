@@ -27,7 +27,6 @@ const Home = () => {
     //fetch movies
     useEffect(() => {
         axios.request(options).then(function (response) {
-            console.log(response.data.results)
             setCardDetails(response.data.results)
             setfilterResult(response.data.results)
             setLoaded(true)
@@ -41,7 +40,6 @@ const Home = () => {
     const handleSearch = (event) => {
         let value = event.target.value.toLowerCase();
         let result = [];
-        console.log(value);
         result = CardDetails.filter((data) => {
             return data.original_title.includes(value);
         });
@@ -100,7 +98,6 @@ const Home = () => {
                             </span>
                         </div>
                     </div>
-                    {console.log(CardDetails)}
                     <Card cardDetails={filterResult} baseimg={BASE_IMG}/>
 
                 </div>

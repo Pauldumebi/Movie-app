@@ -45,7 +45,6 @@ const Login = () => {
         }}
         validationSchema={validate}
         onSubmit={(values) => {
-            console.log(values);
             axios
             .post(
                 "https://afternoon-ridge-35420.herokuapp.com/https://dumebi-movie-app-api.herokuapp.com/api/v1/login", 

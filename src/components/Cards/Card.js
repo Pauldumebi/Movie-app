@@ -21,7 +21,6 @@ const Card = ({cardDetails, baseimg}) => {
             )
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data.cast.slice(0, 4))
                     setCast(res.data.cast.slice(0, 4))
                 } 
             })
@@ -39,7 +38,6 @@ const Card = ({cardDetails, baseimg}) => {
             )
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data.results.slice(0, 1))
                     setMovies(res.data.results.slice(0, 1))
                 } 
             })
