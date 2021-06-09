@@ -69,4 +69,7 @@ main {
     .no-account a {
         color: red;
     }
+    .Login-img-side {
+        filter: blur(8px);
+    }
 }

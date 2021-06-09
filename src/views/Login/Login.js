@@ -56,7 +56,7 @@ const Login = () => {
                 if (res.status === 200) {
                     notify(res.data.message)
                     localStorage.setItem('name', JSON.stringify(res.data.data.first_name));
-                    history.push("/");
+                    history.push("/movie-app");
                 } 
             })
             .catch(function (error) {

@@ -16,8 +16,8 @@ function App() {
             <Switch>
                 <Route exact path = "/register" component = { Register }/> 
                 <Route exact path = "/login" component = { Login }/> 
-                { /* <Route exact path="/movie-app" component={Home} /> */ } 
-                <Route exact path = "/" component = { Home }/> 
+                <Route exact path="/movie-app" component={Home} />
+                {/* <Route exact path = "/" component = { Home }/>  */}
             </Switch> 
         </Router>
     );

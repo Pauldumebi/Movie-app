@@ -19,7 +19,7 @@ const Header = () => {
     const logOut = () => {
         localStorage.setItem('name', JSON.stringify(""));
         setloggedIn(loggedOut)
-        history.push("/")
+        history.push("/movie-app")
     }
     
     return (
@@ -37,7 +37,7 @@ const Header = () => {
                         <Nav>
                             <Nav className="font-weight-bold pr-5 welcome">Welcome {loggedIn}</Nav>
                             <Nav.Link>
-                                <Link to="/" className="sign-up" onClick={()=>logOut()}>
+                                <Link className="sign-up" onClick={()=>logOut()}>
                                     Log out
                                 </Link>
                                 
