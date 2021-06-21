@@ -38,12 +38,16 @@ const Home = () => {
 
     //Search movies
     const handleSearch = (event) => {
-        let value = event.target.value.toLowerCase();
+        let value = event.target.value;
         let result = [];
+        // debugger
+        
         result = CardDetails.filter((data) => {
-            return data.original_title.includes(value);
+            console.log(data.title)
+            return data.title.toLowerCase().includes(value);
         });
             setfilterResult(result);
+            console.log(result)
         }
 
     return (
