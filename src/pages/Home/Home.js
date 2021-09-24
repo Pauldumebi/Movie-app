@@ -3,13 +3,10 @@ import Header from '../../components/Header/Header'
 import './Home.css'
 import axios from 'axios';
 import Select from '../../components/Select/Select';
-import Darth_Vader from '../../images/Darth-Vader.jpeg'
-import fighter from '../../images/fighter.jpeg'
-import jedi_fallen_order from '../../images/jedi-fallen-order.jpeg'
-import { Row, Col } from 'react-bootstrap';
 import Loader from '../../components/Spinner';
 import MovieCrawl from '../../components/MovieCrawl';
 import Table from '../../components/Table';
+import LandingPageImage from '../../components/LandingPageImage/LandingPageImage';
 
 const Home = () => {
 
@@ -68,21 +65,7 @@ const Home = () => {
             <Header/>
             {isLoaded ? ( 
                 <>
-                    <div className="landing-page-container">
-                        <div className="landing-page-img">
-                            <Row>
-                                <Col sm={4}>
-                                    <img src={Darth_Vader} alt="landing-page-img"/>
-                                </Col>
-                                <Col sm={4}>
-                                    <img src={jedi_fallen_order} alt="landing-page-img"/>
-                                </Col>
-                                <Col sm={4}>
-                                    <img src={fighter} alt="landing-page-img"/>
-                                </Col>
-                            </Row>
-                        </div>
-                    </div>
+                    <LandingPageImage/>
                     <h1 className="text-center mt-4 mb-4">Please select a movie</h1>
                     <Select parentCallback = {handleCallback} movies={movies}/>
                     {movieDetails.length ? 

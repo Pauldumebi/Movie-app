@@ -1,0 +1,17 @@
+.landing-page-container {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    max-height: 400px;
+    background-color: #fd507e;
+}
+
+.landing-page-img img{
+    width: 100%;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
